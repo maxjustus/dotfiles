@@ -1,0 +1,24 @@
+" Trailing whitespace highlighting
+set list
+set listchars=tab:→\ ,trail:.
+
+set tabstop=2
+set shiftwidth=2
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set hlsearch
+map tn :tabnew <cr>
+map th :tabprev <cr>
+map tl :tabnext <cr>
+let g:turbux_command_rspec  = 'r'
+autocmd Filetype lua set shiftwidth=2 softtabstop=2 expandtab
+
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
+endfunction

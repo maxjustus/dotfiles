@@ -1,0 +1,14 @@
+alias r="./bin/rspec"
+alias v="vim"
+alias g="git"
+alias gs="git status"
+alias prev='git checkout $(git reflog | grep checkout: -m 2 | tail -n1 | cut -d " " -f 8-)'
+alias grhh='git reset --hard HEAD'
+export PS1="\w$ "
+export GOPATH=$HOME/dev/golang
+export PATH=$PATH:$GOPATH/bin
+export UNICORN_WORKERS=4
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# Add tmup binary to PATH
+export PATH=$PATH:~/.tmup/bin
