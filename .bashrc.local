@@ -10,5 +10,18 @@ export PATH=$PATH:$GOPATH/bin
 export UNICORN_WORKERS=4
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# Git branch last
+gbl() {
+  [ -z $1 ] && count=30 || count=$1
+  branch_list=`git for-each-ref \
+    --count=$count \
+    --sort=-committerdate refs/heads/ \
+    --format='%(refname:short)'`
+
+  select branch in $branch_list; do
+    return `git checkout $branch`
+  done
+}
+
 # Add tmup binary to PATH
 export PATH=$PATH:~/.tmup/bin
