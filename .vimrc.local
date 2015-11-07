@@ -10,8 +10,10 @@ set hlsearch
 map tn :tabnew <cr>
 map th :tabprev <cr>
 map tl :tabnext <cr>
-let g:turbux_command_rspec  = 'r'
 autocmd Filetype lua set shiftwidth=2 softtabstop=2 expandtab
+
+autocmd BufEnter */*.rb let g:turbux_command_rspec  = './bin/rspec'
+autocmd BufEnter */bigcartel/*.rb let g:turbux_command_rspec  = 'bundle exec spec'
 
 command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
 function! QuickfixFilenames()
