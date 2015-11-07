@@ -19,7 +19,8 @@ gbl() {
     --format='%(refname:short)'`
 
   select branch in $branch_list; do
-    return `git checkout $branch`
+    git checkout $branch
+    break
   done
 }
 
