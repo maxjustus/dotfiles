@@ -24,3 +24,13 @@ function! QuickfixFilenames()
   endfor
   return join(values(buffer_numbers))
 endfunction
+
+function TestToSpec()
+  %s/mock(\(.*\))\.\(\w*?\?\)(\(.*\)) {\(.*\)/expect(\1).to receive(:\2).with(\3) {\4/e
+  %s/stub(\(.*\))\.\(\w*?\?\)(\(.*\)) {\(.*\)/allow(\1).to receive(:\2).with(\3) {\4/e
+  %s/mock(\(.*\))\.\(\w*?\?\) {\(.*\)/expect(\1).to receive(:\2) {\3/e
+  %s/stub(\(.*\))\.\(\w*?\?\) {\(.*\)/allow(\1).to receive(:\2) {\3/e
+  %s/\( *\)\(.*\).must_equal[ (]\([^)]*\))\?/\1expect(\2).to eql(\3)/e
+endfunction
+
+:command -nargs=0 Test2Spec call TestToSpec()
