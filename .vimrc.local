@@ -26,19 +26,19 @@ function! QuickfixFilenames()
 endfunction
 
 function! TestToSpec()
-  %s/mock(\(.*\))\.\(\w*?\?\)(\(.*\)) {\(.*\)/expect(\1).to receive(:\2).with(\3) {\4/e
-  %s/stub(\(.*\))\.\(\w*?\?\)(\(.*\)) {\(.*\)/allow(\1).to receive(:\2).with(\3) {\4/e
+  %s/mock(\(.*\))\.\([^(]*?\?\)(\(.*\)) {\(.*\)/expect(\1).to receive(:\2).with(\3) {\4/e
+  %s/stub(\(.*\))\.\([^(]*?\?\)(\(.*\)) {\(.*\)/allow(\1).to receive(:\2).with(\3) {\4/e
 
-  %s/mock(\(.*\))\.\(\w*?\?\)(\(.*\))/expect(\1).to receive(:\2).with(\3)/e
-  %s/stub(\(.*\))\.\(\w*?\?\)(\(.*\))/allow(\1).to receive(:\2).with(\3)/e
+  %s/mock(\(.*\))\.\([^(]*?\?\)(\(.*\))/expect(\1).to receive(:\2).with(\3)/e
+  %s/stub(\(.*\))\.\([^(]*?\?\)(\(.*\))/allow(\1).to receive(:\2).with(\3)/e
 
-  %s/mock(\(.*\))\.\(\w*?\?\) {\(.*\)/expect(\1).to receive(:\2) {\3/e
-  %s/stub(\(.*\))\.\(\w*?\?\) {\(.*\)/allow(\1).to receive(:\2) {\3/e
+  %s/mock(\(.*\))\.\([^(]*?\?\) {\(.*\)/expect(\1).to receive(:\2) {\3/e
+  %s/stub(\(.*\))\.\([^(]*?\?\) {\(.*\)/allow(\1).to receive(:\2) {\3/e
 
-  %s/mock(\(.*\))\.\(\w*?\?\)/expect(\1).to receive(:\2)/e
-  %s/stub(\(.*\))\.\(\w*?\?\)/allow(\1).to receive(:\2)/e
+  %s/mock(\(.*\))\.\([^(]*?\?\)/expect(\1).to receive(:\2)/e
+  %s/stub(\(.*\))\.\([^(]*?\?\)/allow(\1).to receive(:\2)/e
 
-  %s/dont_allow(\(.*\))\.\(\w*?\?\)/expect(\1).not_to receive(:\2)/e
+  %s/dont_allow(\(.*\))\.\([^(]*?\?\)/expect(\1).not_to receive(:\2)/e
 
   %s/\(expect\|allow\)\(.*\)\.any_times/\1\2\.at_least(:once)/e
   %s/\(expect\|allow\)\(.*\)\.with_any_args/\1\2\.with(anything)/e
@@ -46,6 +46,8 @@ function! TestToSpec()
   %s/\( *\)\(.*\).must_equal[ (]\([^)]*\))\?/\1expect(\2).to eql(\3)/e
   %s/assert_redirected_to[ (]\(.*\)/expect(response).to redirect_to(\1)/e
   %s/assert_template[ (]\(.*\)/expect(response).to render_template(\1)/e
+  %s/\( *\)\(.*\).wont_be[ (]:\(.*\)?)\?/\1expect(\2).not_to be_\3/e
+  %s/\( *\)\(.*\).must_be[ (]:\(.*\)?)\?/\1expect(\2).to be_\3/e
 endfunction
 
 command! -nargs=0 Test2Spec call TestToSpec()
