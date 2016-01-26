@@ -12,7 +12,7 @@ map th :tabprev <cr>
 map tl :tabnext <cr>
 autocmd Filetype lua set shiftwidth=2 softtabstop=2 expandtab
 
-autocmd BufEnter */*.rb let g:turbux_command_rspec  = 'rspec'
+autocmd BufEnter */*.rb let g:turbux_command_rspec  = 'bundle exec rspec'
 autocmd BufEnter */bigcartel/*.rb let g:turbux_command_rspec  = 'bundle exec spec'
 
 command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
@@ -26,19 +26,19 @@ function! QuickfixFilenames()
 endfunction
 
 function! TestToSpec()
-  %s/mock(\(.*\))\.\([^(]*?\?\)(\(.*\)) {\(.*\)/expect(\1).to receive(:\2).with(\3) {\4/e
-  %s/stub(\(.*\))\.\([^(]*?\?\)(\(.*\)) {\(.*\)/allow(\1).to receive(:\2).with(\3) {\4/e
+  %s/mock(\(.*\))\.\(\w*[!?]\?\)(\(.*\)) {\(.*\)/expect(\1).to receive(:\2).with(\3) {\4/e
+  %s/stub(\(.*\))\.\(\w*[!?]\?\)(\(.*\)) {\(.*\)/allow(\1).to receive(:\2).with(\3) {\4/e
 
-  %s/mock(\(.*\))\.\([^(]*?\?\)(\(.*\))/expect(\1).to receive(:\2).with(\3)/e
-  %s/stub(\(.*\))\.\([^(]*?\?\)(\(.*\))/allow(\1).to receive(:\2).with(\3)/e
+  %s/mock(\(.*\))\.\(\w*[!?]\?\)(\(.*\))/expect(\1).to receive(:\2).with(\3)/e
+  %s/stub(\(.*\))\.\(\w*[!?]\?\)(\(.*\))/allow(\1).to receive(:\2).with(\3)/e
 
-  %s/mock(\(.*\))\.\([^(]*?\?\) {\(.*\)/expect(\1).to receive(:\2) {\3/e
-  %s/stub(\(.*\))\.\([^(]*?\?\) {\(.*\)/allow(\1).to receive(:\2) {\3/e
+  %s/mock(\(.*\))\.\(\w*[!?]\?\) {\(.*\)/expect(\1).to receive(:\2) {\3/e
+  %s/stub(\(.*\))\.\(\w*[!?]\?\) {\(.*\)/allow(\1).to receive(:\2) {\3/e
 
-  %s/mock(\(.*\))\.\([^(]*?\?\)/expect(\1).to receive(:\2)/e
-  %s/stub(\(.*\))\.\([^(]*?\?\)/allow(\1).to receive(:\2)/e
+  %s/mock(\(.*\))\.\(\w*[!?]\?\)/expect(\1).to receive(:\2)/e
+  %s/stub(\(.*\))\.\(\w*[!?]\?\)/allow(\1).to receive(:\2)/e
 
-  %s/dont_allow(\(.*\))\.\([^(]*?\?\)/expect(\1).not_to receive(:\2)/e
+  %s/dont_allow(\(.*\))\.\(\w*[!?]\?\)/expect(\1).not_to receive(:\2)/e
 
   %s/\(expect\|allow\)\(.*\)\.any_times/\1\2\.at_least(:once)/e
   %s/\(expect\|allow\)\(.*\)\.with_any_args/\1\2\.with(anything)/e
