@@ -44,8 +44,9 @@ function! TestToSpec()
   %s/\(expect\|allow\)\(.*\)\.with_any_args/\1\2\.with(anything)/e
 
   %s/\( *\)\(.*\).must_equal[ (]\([^)]*\))\?/\1expect(\2).to eql(\3)/e
-  %s/assert_redirected_to[ (]\(.*\)/expect(response).to redirect_to(\1)/e
-  %s/assert_template[ (]\(.*\)/expect(response).to render_template(\1)/e
+  %s/assert_redirected_to[ (]\(.*\))\?/expect(response).to redirect_to(\1)/e
+  %s/assert_template[ (]\(.*\))\?/expect(response).to render_template(\1)/e
+  %s/must_render_template[ (]\(.*\))\?/expect(response).to render_template(\1)/e
   %s/\( *\)\(.*\).wont_be[ (]:\(.*\)?)\?/\1expect(\2).not_to be_\3/e
   %s/\( *\)\(.*\).must_be[ (]:\(.*\)?)\?/\1expect(\2).to be_\3/e
 endfunction
