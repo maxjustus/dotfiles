@@ -1,0 +1,26 @@
+#! /bin/sh
+set -e
+
+if [[ -z $(git status -s) ]]; then
+  echo "Aborting due to uncomitted changes"
+  exit
+fi
+
+git checkout develop
+git pull origin develop
+git checkout master
+git pull origin master
+git merge --no-ff develop
+
+DATE=$(date +"%Y%m%d")
+COUNT=$(git tag -l | grep $DATE | wc -l)
+COUNT=$(($COUNT + 1))
+TAG=$DATE.$COUNT
+
+if [ -n "$1" ]; then
+  TAG=$TAG-$1
+fi
+
+git tag $TAG
+git push origin master
+git push --tags
