@@ -1,2 +1,27 @@
-kien/ctrlp.vim
-mustache/vim-mustache-handlebars
+Plug 'kien/ctrlp.vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'lambdatoast/elm.vim'
+Plug 'ryym/vim-riot'
+
+" typescript
+Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'maxjustus/nvim-typescript', {'do': './install.sh'}
+" For async completion
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" For Denite features
+" Plug 'Shougo/denite.nvim'
+Plug 'ngmy/vim-rubocop'
+
+" Color
+Plug 'fcpg/vim-fahrenheit'
+Plug 'jacoborus/tender.vim'
+Plug 'gosukiwi/vim-atom-dark'
+
+" Enable deoplete at startup
+" let g:deoplete#enable_at_startup = 1
+
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+" Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-tsserver coc-deno coc-go coc-rls'}
+Plug 'jparise/vim-graphql'

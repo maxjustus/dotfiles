@@ -1,28 +1,50 @@
 alias r="./bin/rspec"
-alias v="vim"
+alias v="nvim"
+alias vi="nvim"
+alias vim="nvim"
 alias g="git"
 alias gs="git status"
-alias prev='git checkout $(git reflog | grep checkout: -m 2 | tail -n1 | cut -d " " -f 8-)'
-alias grhh='git reset --hard HEAD'
+alias prev="git checkout $(git reflog | grep checkout: -m 2 | tail -n1 | cut -d " " -f 8-)"
+alias grhh="git reset --hard HEAD"
+alias cheddar="git ci --amend -CHEAD"
+alias groutes="bundle exec rake routes | grep $@"
+alias copy_tmux="tmux saveb -|pbcopy && tmux del"
+alias dc="docker-compose $@"
+alias dcr="dc run $@"
+alias dcrs="dc stop $@ && dc start $@"
+alias admin_shell="dc up -d && dc exec admin bash"
+alias admin_console="dc up -d && dc exec admin bundle exec rails c"
+alias legacy_shell="dc up -d && dc exec bigcartel bash"
+alias legacy_console="dc up -d && dc exec bigcartel ./script/console"
+alias dca="dcr admin bundle exec $@"
+alias dcl="dcr bigcartel bundle exec $@"
 export PS1="\w$ "
 export GOPATH=$HOME/dev/golang
 export PATH=$PATH:$GOPATH/bin
 export UNICORN_WORKERS=4
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-# Git branch last
-gbl() {
-  [ -z $1 ] && count=30 || count=$1
-  branch_list=`git for-each-ref \
-    --count=$count \
-    --sort=-committerdate refs/heads/ \
-    --format='%(refname:short)'`
-
-  select branch in $branch_list; do
-    git checkout $branch
-    break
-  done
-}
+export NVM_DIR="/Users/maxspransy/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+export NODE_PATH=`which node`
 
 # Add tmup binary to PATH
 export PATH=$PATH:~/.tmup/bin
+export PATH=$PATH:/Users/maxspransy/.local/bin
+export PATH="$HOME/dev/avr32-tools/bin:$PATH"
+export BIG_CARTEL_HOME="/Users/maxspransy/dev/bigcartel-dev"
+export BIG_CARTEL_DOCKER_COMPOSE_DIR="/Users/maxspransy/dev/bigcartel-dev/compose-dev"
+export HOST_HOME="/Users/maxspransy/"
+
+# Add the following to your ~/.bashrc or ~/.zshrc
+#
+# Alternatively, copy/symlink this file and source in your shell.  See `hitch --setup-path`.
+
+hitch() {
+  command hitch "$@"
+  if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
+}
+alias unhitch='hitch -u'
+
+# Uncomment to persist pair info between terminal instances
+# hitch

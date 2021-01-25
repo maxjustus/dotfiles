@@ -1,7 +1,7 @@
 #! /bin/sh
 set -e
 
-if [[ -n $(git status -s) ]]; then
+if [[ -n $(git status -suno) ]]; then
   echo "Aborting due to uncomitted changes"
   exit
 fi
