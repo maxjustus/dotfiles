@@ -40,8 +40,6 @@ function! QuickfixFilenames()
   return join(values(buffer_numbers))
 endfunction
 
-let g:ale_linters = {'go': ['golangserver', 'gofmt', 'gobuild']}
-
 set background=dark
 colorscheme atom-dark-256
 
@@ -95,19 +93,6 @@ let g:go_def_mapping_enabled = 0
 
 " Conquer Of Completion (coc) plugin config
 let g:coc_disable_startup_warning = 1
-
-function! ShowDocIfNoDiagnostic(timer_id)
-  if (coc#util#has_float() == 0)
-    silent call CocActionAsync('doHover')
-  endif
-endfunction
-
-function! s:show_hover_doc()
-  call timer_start(500, 'ShowDocIfNoDiagnostic')
-endfunction
-
-autocmd CursorHoldI * :call <SID>show_hover_doc()
-autocmd CursorHold * :call <SID>show_hover_doc()
 
 " Conquer Of Completion (coc) keyboard commands for nvim
 nnoremap <silent> K :call CocAction('doHover')<CR>
